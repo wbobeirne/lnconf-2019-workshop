@@ -1,0 +1,14 @@
+.PostForm {
+  &-pay {
+    &-top {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      .form-group {
+        flex: 1;
+        margin: 0 0 0 1rem;
+      }
+    }
+  }
+}

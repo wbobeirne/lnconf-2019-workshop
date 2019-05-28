@@ -1,25 +1,16 @@
 # Chicago BOB Lightning App Workshop
 
-This is the code for the [Lightning workshop for the Bitcoin & Open Blockchain meetup in Chicago](https://www.meetup.com/Bitcoin-Open-Blockchain-Community-Chicago/events/261694584/). If you weren't attending there, hopefully there will be a video at some point you can follow along with. If you're interested in learning to make Lightning apps though, I suggest you check out the [Lightning App Tutorial blog post series](https://medium.com/p/4a13c82f3f78) I put together that this is based off of.
+Congrats! You found the second part of the workshop. This is a very basic Lightning app that will allow us to get paid for users to post and replace content in a King of the Hill style page.
 
-If you are here at the meetup, welcome! I'm looking forward to building some cool stuff with you.
-
-## Requirements
-
-* [Node.js](https://nodejs.org/en/) 8+
-* An [LND node](https://github.com/lightningnetwork/lnd)
+In order to set this up properly, we'll need to make some adjustments from the work we just did:
 
 ## Setup the Project
 
-Copy the environment configuration file with
-```
-cp .env.example .env
-```
+In our `.env` file, we'll need to change the following fields, and add one as well:
 
-Edit the following fields in your new .env file with information about your node. You can get some help finding this info using this tool: https://lightningjoule.com/tools/node-info
-* `LND_GRPC_URL` - The location to connect to your node. If you're running with default settings locally, this should be `127.0.0.1:10009`.
-* `LND_MACAROON` - Your `readonly.macaroon` file, base64 encoded. Run `base64 readonly.macaroon` in your macaroon directory to get this.
-* `LND_TLS_CERT` - Your TLS certificate, also base 64 encoded. Run `base64 tls.cert` in your data directory to get this.
+* `PORT` - We'll want to increment this to `3001` as the Express server will now operate in the background, and we'll be using Webpack to serve up the actual application.
+* `API_PATH` - This will point our frontend app to the webserver, this should be `API_PATH="http://localhost:3000/api"`
+* `LND_MACAROON` - We now need to make more advanced calls on our node, so we need more permissions. Change this from your `base64 readonly.macaroon` to your `base64 invoice.macaroon` that you can find in the same directory.
 
 ## Run the Project
 
