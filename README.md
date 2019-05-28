@@ -1,6 +1,6 @@
 # Chicago BOB Lightning App Workshop
 
-This is the code for the Bitcoin & Open Blockchain meetup in Chicago. If you weren't attending there, hopefully there will be a video at some point you can follow along with. If you're interested in learning to make Lightning apps though, I suggest you check out the [Lightning App Tutorial blog post series](https://medium.com/p/4a13c82f3f78) I put together that this is based off of.
+This is the code for the [Lightning workshop for the Bitcoin & Open Blockchain meetup in Chicago](https://www.meetup.com/Bitcoin-Open-Blockchain-Community-Chicago/events/261694584/). If you weren't attending there, hopefully there will be a video at some point you can follow along with. If you're interested in learning to make Lightning apps though, I suggest you check out the [Lightning App Tutorial blog post series](https://medium.com/p/4a13c82f3f78) I put together that this is based off of.
 
 If you are here at the meetup, welcome! I'm looking forward to building some cool stuff with you.
 
