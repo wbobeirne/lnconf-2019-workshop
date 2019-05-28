@@ -1,7 +1,9 @@
 import express from 'express';
 import expressWs from 'express-ws';
+import compression from 'compression';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import path from 'path';
 import { Invoice, Readable } from '@radar/lnrpc';
 import env from './env';
 import { node, initNode } from './node';
@@ -10,6 +12,7 @@ import postManager from './post';
 /*************** Configure server ***************/
 
 const app = expressWs(express()).app;
+app.use(compression());
 app.use(cors({ origin: '*' }));
 app.use(bodyParser.json());
 
@@ -86,10 +89,22 @@ app.post('/api/post', async (req, res, next) => {
   }
 });
 
-app.get('/', (req, res) => {
-  res.send('You need to load the webpack-dev-server page, not the server page!');
-});
+/****************** Root path ******************/
 
+if (process.env.NODE_ENV !== 'production') {
+  // Development uses webpack-dev-server
+  app.get('/', (req, res) => {
+    res.send('You need to load the webpack-dev-server page, not the server page!');
+  });
+} else {
+  // Production serves compiled webpack assets
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'static/index.html'));
+  });
+  app.use('/static', express.static(path.join(__dirname, 'static')));
+}
+
+/****************** Initialize ******************/
 
 // Initialize node & server
 console.log('Initializing Lightning node...');
@@ -97,7 +112,7 @@ initNode().then(() => {
   console.log('Lightning node initialized!');
   console.log('Starting server...');
   app.listen(env.PORT, () => {
-    console.log(`API Server started at http://localhost:${env.PORT}!`);
+    console.log(`Server started at http://localhost:${env.PORT}!`);
   });
 
   // Subscribe to all invoices, mark posts as paid

@@ -19,7 +19,7 @@ const INITIAL_STATE: State = {
   error: null,
 };
 
-export default class App extends React.Component<State> {
+export default class App extends React.Component<{}, State> {
   state: State = { ...INITIAL_STATE };
 
   // Connect websocket immediately

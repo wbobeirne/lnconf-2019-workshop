@@ -3,10 +3,12 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const isDev = process.env.NODE_ENV !== 'production';
 const clientDir = path.resolve(__dirname);
-const serverDir = path.resolve(__dirname, '../server');
-const publicPath = '/';
+const buildDir = path.resolve(__dirname, '../build/static');
+const publicPath = isDev ? '/' : '/static';
 
 // Loaders, determine what files we can import and how they're compiled
 const typescriptLoader = {
@@ -14,14 +16,15 @@ const typescriptLoader = {
   use: [
     {
       loader: 'ts-loader',
-      options: { transpileOnly: true },
+      options: { transpileOnly: isDev },
     },
   ],
 };
 const cssLoader = {
   test: /\.css$/,
   use: [
-    'style-loader',
+    isDev && 'style-loader',
+    !isDev && MiniCssExtractPlugin.loader,
     'css-loader',
   ].filter(Boolean),
 };
@@ -53,18 +56,25 @@ const plugins = [
     inject: true,
   }),
 ];
+if (!isDev) {
+  plugins.unshift(
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash:8].css',
+    })
+  );
+}
 
 module.exports = {
-  mode: 'development',
+  mode: isDev ? 'development' : 'production',
   name: 'main',
   target: 'web',
-  devtool: 'cheap-module-inline-source-map',
+  devtool: isDev ? 'cheap-module-inline-source-map' : 'source-map',
   entry: path.join(clientDir, 'index.tsx'),
   output: {
-    path: path.join(serverDir, 'public'),
-    filename: 'script.js',
+    path: buildDir,
     publicPath,
-    chunkFilename: '[name].chunk.js',
+    filename: isDev ? 'script.js' : 'script.[hash:8].js',
+    chunkFilename: isDev ? '[name].chunk.js' : '[name].[chunkhash:8].chunk.js',
   },
   module: {
     rules: [
