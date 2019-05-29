@@ -9,12 +9,17 @@ import env from './env';
 import { node, initNode } from './node';
 import postManager from './post';
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 /*************** Configure server ***************/
 
 const app = expressWs(express()).app;
 app.use(compression());
-app.use(cors({ origin: '*' }));
 app.use(bodyParser.json());
+
+if (isDev) {
+  app.use(cors({ origin: '*' }));
+}
 
 
 /******************** Routes ********************/
@@ -91,7 +96,7 @@ app.post('/api/post', async (req, res, next) => {
 
 /****************** Root path ******************/
 
-if (process.env.NODE_ENV !== 'production') {
+if (isDev) {
   // Development uses webpack-dev-server
   app.get('/', (req, res) => {
     res.send('You need to load the webpack-dev-server page, not the server page!');
