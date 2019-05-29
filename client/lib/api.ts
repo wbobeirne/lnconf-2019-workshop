@@ -7,11 +7,7 @@ class API {
   url: string;
 
   constructor(url: string) {
-    if (url) {
-      this.url = url;
-    } else {
-      this.url = `${window.location.origin}/api`;
-    }
+    this.url = url;
   }
 
   // Public methods
@@ -77,4 +73,12 @@ class API {
 }
 
 // Export a default API that points at the API_PATH environment variable
-export default new API(process.env.API_PATH as string);
+// in development, and to the same server in production.
+let apiPath;
+if (process.env.NODE_ENV === 'production') {
+  apiPath = `${window.location.origin}/api`;
+} else {
+  apiPath = process.env.API_PATH as string;
+}
+
+export default new API(apiPath);
