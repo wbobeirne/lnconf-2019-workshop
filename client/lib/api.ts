@@ -73,4 +73,4 @@ class API {
 }
 
 // Export a default API that points at the API_PATH environment variable
-export default new API(process.env.API_PATH as string);
+export default new API(process.env.API_PATH as string || '/api');
