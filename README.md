@@ -1,20 +1,19 @@
 # Chicago BOB Lightning App Workshop
 
-Congrats! You found the second part of the workshop. This is a very basic Lightning app that will allow us to get paid for users to post and replace content in a King of the Hill style page.
+You're now ready to deploy your app to a production webserver, that's freakin' awesome. For this portion, we'll be using [Heroku](https://www.heroku.com/), since it's really easy to use and you can get started for free.
 
-In order to set this up properly, we'll need to make some adjustments from the work we just did:
+## Setup Heroku
 
-## Setup the Project
+1. First things first, you'll need to create an account if you don't already have one. You can do that on [Heroku.com](https://www.heroku.com/)
+2. Install the Heroku CLI by [following the guide here](https://devcenter.heroku.com/articles/heroku-cli).
+3. Create a new Heroku app for the project, and follow the instructions to link your project folder to it. This can be done partially through their UI, or entirely in the command line.
+4. Configure the `LND_*` environment variables in your Heroku app's settings. This can be done via their UI, or the command line.
+5. Push the project! Run `git push heroku heroku:master`
 
-In our `.env` file, we'll need to change the following fields, and add one as well:
+## Troubleshooting
 
-* `PORT` - We'll want to increment this to `3001` as the Express server will now operate in the background, and we'll be using Webpack to serve up the actual application.
-* `API_PATH` - This will point our frontend app to the webserver, this should be `API_PATH="http://localhost:3000/api"`
-* `LND_MACAROON` - We now need to make more advanced calls on our node, so we need more permissions. Change this from your `base64 readonly.macaroon` to your `base64 invoice.macaroon` that you can find in the same directory.
+If you're having issues with your deployment, check for the following problems.
 
-## Run the Project
-
-Install dependencies and run the app with
-```sh
-npm install && npm run dev
-```
+* When you push, make sure you do `heroku:master` and not just `heroku`. Heroku only deploys what's on the master branch, but this part of the tutorial is on the heroku branch, so we need to tell it to rename it with the `:` character.
+* Make sure you don't set `PORT` or `API_PATH`, these are handled automatically for you by Heroku and overriding them may cause issues.
+* Are your posts disappearing? That's because they're stored entirely in Javascript memory. Heroku may occasionally restart or migrate your application from one server to another, causing memory to reset. If you'd like to keep posts around forever, you'll need to use a database of some sort.
