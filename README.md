@@ -1,4 +1,4 @@
-# Chicago BOB Lightning App Workshop
+# Lightning Conference 2019 Workshop
 
 You're now ready to deploy your app to a production webserver, that's freakin' awesome. For this portion, we'll be using [Heroku](https://www.heroku.com/), since it's really easy to use and you can get started for free.
 

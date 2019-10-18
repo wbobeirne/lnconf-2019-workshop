@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "concurrently -n server,client 'npm run dev:server' 'npm run dev:client'",
-    "dev:client": "webpack-dev-server --config ./client/webpack.config.js --display=minimal",
+    "dev:client": "webpack-dev-server --config ./client/webpack.config.js --display=errors-only",
     "dev:server": "nodemon",
     "build": "rimraf build/ && npm run build:server && npm run build:client",
     "build:client": "cross-env NODE_ENV=production webpack --config client/webpack.config.js",

@@ -90,7 +90,6 @@ module.exports = {
     modules: [clientDir, path.join(__dirname, '../node_modules')],
   },
   devServer: {
-    port: 3000,
     hot: true,
   },
 };
