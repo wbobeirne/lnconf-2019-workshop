@@ -1,4 +1,4 @@
-# Chicago BOB Lightning App Workshop
+# Lightning Conference 2019 Workshop
 
 This is the code for the Building a LApp with NodeJS + LND workshop at [The Lightning Conference](https://thelightningconference.com). If you're interested in learning to make Lightning apps though, I suggest you check out the [Lightning App Tutorial blog post series](https://medium.com/p/4a13c82f3f78) I put together that this is based off of.
 
